@@ -22,9 +22,18 @@
         FRANK BURGERS
       </a>
       <nav class="nav-links">
-        <a href="#menu">Menú</a>
+        <div class="nav-dropdown-wrap">
+          <a href="#menu" class="nav-dropdown-trigger">Menú <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown">
+            <a href="#menu">🍔 Hamburguesas</a>
+            <a href="#clasicos">🥪 Pachatas & Lomos</a>
+            <a href="#dips">🫕 Dips</a>
+            <a href="#bebidas">🥤 Bebidas</a>
+          </div>
+        </div>
         <a href="#promos">Promos</a>
         <a href="#contacto">Contacto</a>
+        <button class="btn-share" id="shareBtn" title="Compartir">🔗</button>
       </nav>
       <a href="#" class="btn-primary header-cta" data-wa="Hola! Quiero hacer un pedido">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -296,19 +305,115 @@
         <p class="section-subtitle">Los clásicos de siempre con nuestro toque especial</p>
       </div>
       <div class="classics-grid">
-        <div class="classic-card reveal">
+        <div class="classic-card reveal" data-name="Pachata" data-price="13000">
+          <div class="card-img-wrap"><img src="assets/pachata/pachata.jpeg" alt="Pachata" class="card-img"></div>
           <span class="card-label">Pachata</span>
           <h3>La Pachata 🥪</h3>
           <p class="ingredients">Pan, carne de lomo, lechuga, tomate, jamón cocido, queso tybo, omelette, alioli</p>
           <div class="price-big">$13.000 <small>c/u</small></div>
-          <button class="btn-whatsapp-sm" data-wa="Hola! Quiero pedir una Pachata">🛒 Pedir Pachata</button>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-classic">🛒 Agregar</button>
+          </div>
+          <textarea class="notes-input" placeholder="Notas adicionales..." rows="2"></textarea>
         </div>
-        <div class="classic-card reveal">
+        <div class="classic-card reveal" data-name="Lomo" data-price="14000">
+          <div class="card-img-wrap"><img src="assets/lomos/lomo.jpg" alt="Lomo" class="card-img"></div>
           <span class="card-label">Lomo</span>
           <h3>El Lomo 🥩</h3>
           <p class="ingredients">Pan, bife de lomo, lechuga, tomate, huevo, jamón cocido, queso tybo, alioli de ajo</p>
           <div class="price-big">$14.000 <small>c/u</small></div>
-          <button class="btn-whatsapp-sm" data-wa="Hola! Quiero pedir un Lomo">🛒 Pedir Lomo</button>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-classic">🛒 Agregar</button>
+          </div>
+          <textarea class="notes-input" placeholder="Notas adicionales..." rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIPS -->
+  <section class="dips-section" id="dips">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-badge">🫕 Entrada</span>
+        <h2 class="section-title">Dips <span class="accent">& Extras</span></h2>
+        <p class="section-subtitle">El acompañamiento perfecto para tu pedido</p>
+      </div>
+      <div class="dips-grid">
+        <div class="dip-card reveal" data-name="Dip de barbacoa" data-price="600">
+          <div class="dip-info">
+            <h3>Dip de barbacoa</h3>
+            <div class="dip-price">$600</div>
+          </div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-dip">🛒 Agregar</button>
+          </div>
+        </div>
+        <div class="dip-card reveal" data-name="Dip de ajo" data-price="500">
+          <div class="dip-info">
+            <h3>Dip de ajo</h3>
+            <div class="dip-price">$500</div>
+          </div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-dip">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEBIDAS -->
+  <section class="bebidas-section" id="bebidas">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-badge">🥤 Bebidas</span>
+        <h2 class="section-title">Nuestras <span class="accent">Bebidas</span></h2>
+        <p class="section-subtitle">Refrescá tu pedido con la mejor selección</p>
+      </div>
+      <div class="bebidas-grid">
+        <div class="bebida-card reveal" data-name="Coca Cola 310ml" data-price="1300">
+          <div class="bebida-img-wrap"><img src="assets/bebidas/cocacola.png" alt="Coca Cola" class="bebida-img"></div>
+          <div class="bebida-info"><h3>Coca Cola 310ml</h3><div class="bebida-price">$1.300</div></div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-bebida">🛒</button>
+          </div>
+        </div>
+        <div class="bebida-card reveal" data-name="Fanta 310ml" data-price="1300">
+          <div class="bebida-img-wrap"><img src="assets/bebidas/fanta.png" alt="Fanta" class="bebida-img"></div>
+          <div class="bebida-info"><h3>Fanta 310ml</h3><div class="bebida-price">$1.300</div></div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-bebida">🛒</button>
+          </div>
+        </div>
+        <div class="bebida-card reveal" data-name="Sprite 310ml" data-price="1300">
+          <div class="bebida-img-wrap"><img src="assets/bebidas/sprite.png" alt="Sprite" class="bebida-img"></div>
+          <div class="bebida-info"><h3>Sprite 310ml</h3><div class="bebida-price">$1.300</div></div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-bebida">🛒</button>
+          </div>
+        </div>
+        <div class="bebida-card reveal" data-name="Pepsi 500ml" data-price="1300">
+          <div class="bebida-img-wrap"><img src="assets/bebidas/pepsi.png" alt="Pepsi" class="bebida-img"></div>
+          <div class="bebida-info"><h3>Pepsi 500ml</h3><div class="bebida-price">$1.300</div></div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-bebida">🛒</button>
+          </div>
+        </div>
+        <div class="bebida-card reveal" data-name="7up 500ml" data-price="1300">
+          <div class="bebida-img-wrap"><img src="assets/bebidas/7up.png" alt="7up" class="bebida-img"></div>
+          <div class="bebida-info"><h3>7up 500ml</h3><div class="bebida-price">$1.300</div></div>
+          <div class="card-actions">
+            <div class="qty-control"><button class="qty-btn" data-action="minus">−</button><span class="qty-value">1</span><button class="qty-btn" data-action="plus">+</button></div>
+            <button class="btn-add-cart btn-add-bebida">🛒</button>
+          </div>
         </div>
       </div>
     </div>
@@ -440,6 +545,37 @@
     <span class="cart-icon">🛒</span>
     <span class="cart-badge" id="cartBadge">0</span>
   </button>
+
+  <!-- EXTRAS MODAL (for burgers) -->
+  <div class="extras-overlay" id="extrasOverlay"></div>
+  <div class="extras-modal" id="extrasModal">
+    <div class="extras-modal-header">
+      <h3 id="extrasTitle">🍔 Personalizar</h3>
+      <button class="cart-close" id="extrasClose">✕</button>
+    </div>
+    <div class="extras-body">
+      <div class="extras-group">
+        <h4>Extras <small>(0/4)</small></h4>
+        <label class="extras-option"><input type="checkbox" value="Panceta" data-price="900"><span>Panceta</span><span class="extras-price">$900</span></label>
+        <label class="extras-option"><input type="checkbox" value="Extra carne" data-price="1000"><span>Extra carne</span><span class="extras-price">$1.000</span></label>
+        <label class="extras-option"><input type="checkbox" value="Extra cheddar" data-price="500"><span>Extra cheddar</span><span class="extras-price">$500</span></label>
+        <label class="extras-option"><input type="checkbox" value="Papas fritas" data-price="1600"><span>Papas fritas</span><span class="extras-price">$1.600</span></label>
+      </div>
+      <div class="extras-group">
+        <h4>Elegí tu pan <small>(0/1)</small></h4>
+        <label class="extras-option"><input type="radio" name="bread" value="Gratinado"><span>Gratinado</span></label>
+        <label class="extras-option"><input type="radio" name="bread" value="Semillas"><span>Semillas</span></label>
+        <label class="extras-option"><input type="radio" name="bread" value="Liso" checked><span>Liso</span></label>
+      </div>
+      <div class="extras-group">
+        <h4>Notas adicionales</h4>
+        <textarea class="notes-input" id="extrasNotes" placeholder="Ej: sin cebolla, bien cocida..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="extras-footer">
+      <button class="btn-primary extras-confirm" id="extrasConfirm">✓ Confirmar y agregar</button>
+    </div>
+  </div>
 
   <!-- CART MODAL -->
   <div class="cart-overlay" id="cartOverlay"></div>
