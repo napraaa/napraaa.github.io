@@ -1,7 +1,6 @@
-// ===== FRANK BURGERS — Interactivity =====
+// ===== FRANK BURGERS — Interactivity + Animations =====
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- WhatsApp number (replace with real number) ---
   const WA_NUMBER = '542645439494';
 
   // --- Sticky Header ---
@@ -30,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Scroll Reveal ---
-  const revealElements = document.querySelectorAll('.reveal');
+  // --- Scroll Reveal (supports multiple classes) ---
+  const revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale';
+  const revealElements = document.querySelectorAll(revealSelectors);
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -39,20 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // --- Staggered reveal for grid items ---
+  document.querySelectorAll('.menu-grid, .promos-grid, .classics-grid').forEach(container => {
+    Array.from(container.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.1}s`;
+    });
+  });
 
   // --- WhatsApp Buttons ---
   document.querySelectorAll('[data-wa]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const msg = btn.getAttribute('data-wa') || 'Hola! Quiero hacer un pedido';
-      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     });
   });
 
-  // --- Smooth scroll for anchor links ---
+  // --- Smooth scroll ---
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const target = document.querySelector(anchor.getAttribute('href'));
@@ -63,13 +69,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Staggered reveal for grid items ---
-  const staggerContainers = document.querySelectorAll('.menu-grid, .promos-grid, .classics-grid');
-  staggerContainers.forEach(container => {
-    const children = container.children;
-    Array.from(children).forEach((child, i) => {
-      child.style.transitionDelay = `${i * 0.08}s`;
+  // --- Parallax on hero video ---
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', () => {
+      const scroll = window.scrollY;
+      if (scroll < window.innerHeight) {
+        heroBg.style.transform = `translateY(${scroll * 0.3}px) scale(1.1)`;
+      }
+    }, { passive: true });
+  }
+
+  // --- Tilt effect on burger cards ---
+  document.querySelectorAll('.burger-card, .classic-card, .promo-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `translateY(-6px) perspective(800px) rotateX(${y * -4}deg) rotateY(${x * 4}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
     });
   });
+
+  // --- Counter animation for prices on promo cards ---
+  const animatePrice = (el) => {
+    const text = el.textContent;
+    const match = text.match(/\$[\d.]+/);
+    if (!match) return;
+    const target = parseInt(match[0].replace(/[$.,]/g, ''));
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(target * eased);
+      el.textContent = '$' + current.toLocaleString('es-AR');
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const priceObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animatePrice(entry.target);
+        priceObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.promo-price').forEach(el => priceObserver.observe(el));
 
 });
